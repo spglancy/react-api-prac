@@ -1,25 +1,87 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable semi */
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+    // State holds values returned from server
+    this.state = {
+      test: null,
+      message: null,
+    }
+  }
+
+  componentDidMount() {
+    // Use Fetch to call API. The /test route returns a simple string
+    // This call in componentDidMount will only be called once
+    fetch('/test').then((res) => {
+      // stream the response as JSON
+      return res.json()
+    }).then((json) => {
+      console.log(json)
+      const { test } = json // Get a value from JSON object
+      this.setState({ test }) // Set a value on state with returned value
+    }).catch((err) => {
+      // Handle errors
+      console.log(err.message)
+    })
+
+    // Let's call another API
+    this.fetchMessage()
+  }
+
+  fetchMessage() {
+    // Wrapping the API call in a function allow you to make calls to this
+    // API as often as needed.
+    
+    // This calls a route and passes value in the query string. 
+    fetch('/random/?n=99').then(res => res.json()).then((json) => {
+      console.log(">", json)
+      this.setState({
+        message: json.value,
+      })
+    }).catch((err) => {
+      console.log(err.message)
+    })
+  }
+
+  renderMessage() {
+    // Used to conditionally render data from server.
+    // Returns null if message is null otherwise returns
+    // a populated JSX element.
+    const { message } = this.state
+    if (message === null) {
+      return undefined
+    }
+
+    return <h1>{message}</h1>
+  }
+
   render() {
+    const { test } = this.state
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+        <p>
+          Testing:
+          {test}
+        </p>
+        <div>{this.renderMessage()}</div>
+        <p>
+          <button
+            type="button"
+            onClick={() => {
+              this.fetchMessage()
+            }}
           >
-            Learn React
-          </a>
-        </header>
+          Random
+          </button>
+        </p>
       </div>
     );
   }

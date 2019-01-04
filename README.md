@@ -1,44 +1,41 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Express Front End Starter 
 
-## Available Scripts
+This project is a front end project meant to work with the Express backend [here](https://github.com/Product-College-Labs/react-express-server). 
 
-In the project directory, you can run:
+The goal of this project is to provide a front end for a simple Express server. 
 
-### `npm start`
+## Getting started 
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This project is made up two parts. The React front end client and the Express backend server. 
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Install and run this project: 
 
-### `npm test`
+- `npm install`
+- `npm start`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+View the project at: [http://localhost:3000](http://localhost:3000)
 
-### `npm run build`
+### Proxy Server 
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This project is view at http://localhost:3000 but it sends messages and communicates with the backend through it's proxy server on port: 6000. 
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Look at [package.json](package.json). Line 10: 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`"proxy": "http://localhost:6000"`
 
-### `npm run eject`
+Network requests made from this project will come from this address. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Look at the Express server project. In `server.js` at the end of file you'll find: 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```JS
+const port = 6000
+app.listen(port, () => console.log(`LISTENING ON PORT ${port}`))
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This project runs on port: 6000. 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+You'll need to have both projects running at the same time! Launch the Express server first using terminal. Open another terminal navigate to this folder and launch this project. 
 
-## Learn More
+## Challenges 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 
