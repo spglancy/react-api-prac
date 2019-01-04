@@ -11,7 +11,7 @@ class App extends Component {
 
     // State holds values returned from server
     this.state = {
-      test: null,
+      about: null,
       message: null,
     }
   }
@@ -19,13 +19,13 @@ class App extends Component {
   componentDidMount() {
     // Use Fetch to call API. The /test route returns a simple string
     // This call in componentDidMount will only be called once
-    fetch('/test').then((res) => {
+    fetch('/about').then((res) => {
       // stream the response as JSON
       return res.json()
     }).then((json) => {
       console.log(json)
-      const { test } = json // Get a value from JSON object
-      this.setState({ test }) // Set a value on state with returned value
+      const { about } = json // Get a value from JSON object
+      this.setState({ about }) // Set a value on state with returned value
     }).catch((err) => {
       // Handle errors
       console.log(err.message)
@@ -63,13 +63,13 @@ class App extends Component {
   }
 
   render() {
-    const { test } = this.state
+    const { about } = this.state
 
     return (
       <div className="App">
         <p>
-          Testing:
-          {test}
+          <strong>About:</strong>
+          {about}
         </p>
         <div>{this.renderMessage()}</div>
         <p>

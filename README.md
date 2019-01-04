@@ -17,22 +17,22 @@ View the project at: [http://localhost:3000](http://localhost:3000)
 
 ### Proxy Server 
 
-This project is view at http://localhost:3000 but it sends messages and communicates with the backend through it's proxy server on port: 6000. 
+This project is viewed at http://localhost:3000 but it sends messages and communicates with the backend through it's proxy server on port: 4000. 
 
 Look at [package.json](package.json). Line 10: 
 
-`"proxy": "http://localhost:6000"`
+`"proxy": "http://localhost:4000"`
 
 Network requests made from this project will come from this address. 
 
 Look at the Express server project. In `server.js` at the end of file you'll find: 
 
 ```JS
-const port = 6000
+const port = 4000
 app.listen(port, () => console.log(`LISTENING ON PORT ${port}`))
 ```
 
-This project runs on port: 6000. 
+This project runs on port: 4000. 
 
 You'll need to have both projects running at the same time! Launch the Express server first using terminal. Open another terminal navigate to this folder and launch this project. 
 
