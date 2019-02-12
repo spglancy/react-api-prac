@@ -13,6 +13,9 @@ class App extends Component {
     this.state = {
       about: null,
       message: null,
+      range: 100,
+      route: "forecast",
+      inputValue: 100
     }
   }
 
@@ -21,6 +24,7 @@ class App extends Component {
     // This call in componentDidMount will only be called once
     fetch('/about').then((res) => {
       // stream the response as JSON
+      console.log(res.json())
       return res.json()
     }).then((json) => {
       console.log(json)
@@ -40,8 +44,8 @@ class App extends Component {
     // API as often as needed.
     
     // This calls a route and passes value in the query string. 
-    fetch('/random/?n=99').then(res => res.json()).then((json) => {
-      console.log(">", json)
+    fetch(`/${this.state.route}/?lat=${this.state.lat}&long=${this.state.long}`).then(res => res.json()).then((json) => {
+      console.log(json)
       this.setState({
         message: json.value,
       })
@@ -73,14 +77,14 @@ class App extends Component {
         </p>
         <div>{this.renderMessage()}</div>
         <p>
-          <button
-            type="button"
-            onClick={() => {
-              this.fetchMessage()
-            }}
-          >
-          Random
-          </button>
+          <form onSubmit = {(e) => {
+            e.preventDefault()
+            this.fetchMessage()
+          }}>
+          <input value={this.state.lat} onChange={e => this.setState({ lat: e.target.value })} type="number" placeholder="latitude"/>
+          <input value={this.state.long} onChange={e => this.setState({ long: e.target.value })} type="number" placeholder="longitude"/>          
+          <button type="submit">Generate</button>
+          </form>
         </p>
       </div>
     );
